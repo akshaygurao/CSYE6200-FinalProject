@@ -7,18 +7,20 @@ package edu.neu.csye6200.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
  * @author akshaygurao
  */
-public class Controller {
+public class UIController {
+	private Random generator = new Random();
     private String event = "True";
     private int currTemp = 66;
     private int setTemp = 71;
     private List<String> rooms;
 
-    public Controller() {
+    public UIController() {
         this.rooms = new ArrayList<>();
         this.rooms.add("BedRoom");
         this.rooms.add("Living Room");
@@ -55,10 +57,11 @@ public class Controller {
     public void setSetTemp(int setTemp) {
         this.setTemp = setTemp;
     }
-    
-    
-    public static void demo(){
-        
+   
+    public Random getGenerator() {
+		return generator;
+	}
+	public static void demo(){
         
     }
 }
