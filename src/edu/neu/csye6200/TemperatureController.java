@@ -15,6 +15,7 @@ import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
 
+import edu.neu.csye6200.gui.Application;
 import edu.neu.csye6200.pojo.CEPListerner;
 import edu.neu.csye6200.pojo.ThermoStat;
 
@@ -22,11 +23,15 @@ public class TemperatureController {
 	
 	private static Random generator = new Random();
 	public static void GenerateRandomTick(EPRuntime cepRT) {
+		
 		int temperature = generator.nextInt(120);
 		String room = "Bedroom";
 		ThermoStat tick = new ThermoStat(temperature, room);
 		System.out.println("Sending tick:" + tick);
 		cepRT.sendEvent(tick);
+
+		Application app = Application.getInstance();
+		app.setBedroomTemperature(String.valueOf(temperature));
 	}
 	
 	public static void demo() {
@@ -60,6 +65,12 @@ public class TemperatureController {
 		
 		for (int i = 0; i < 20; i++) {
 			GenerateRandomTick(cepRT);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		System.out.println(TemperatureController.class.getName() + ".demo() done!\n");
